@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                tools:context="com.waimai.Buy.BuyActivity">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/buy_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            app:contentInsetStart="0dp"
+            android:background="@color/colorPrimary">
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/buy_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_icon_return_left_01" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+            android:id="@+id/buy_title"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_below="@id/buy_toolbar"
+            android:orientation="vertical"
+            android:background="@color/colorPrimary">
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/buy_shop_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_food"/>
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/buy_shop_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top|center"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:paddingTop="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/buy_menu_layout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/buy_title"
+            android:orientation="horizontal"
+            android:layout_above="@+id/buy_menu_layout2">
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/menu_right"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <RelativeLayout
+            android:id="@+id/buy_menu_layout2"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:background="#2d2d2d">
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/buy_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="请下单"
+                android:textColor="#ffffff"
+                android:textSize="18dp"/>
+
+        <android.support.v7.widget.AppCompatButton
+                android:id="@+id/buy_button"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:text="下 单"
+                android:background="#28c600"
+                android:textColor="#ffffff"
+                android:textSize="20dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

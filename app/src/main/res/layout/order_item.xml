@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+            android:id="@+id/shop_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/shop_dingdan_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="第一食堂"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            app:layout_constraintStart_toEndOf="@+id/shop_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/sales_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="2018.06.03"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@+id/shop_img"
+            app:layout_constraintTop_toBottomOf="@+id/shop_dingdan_name" />
+
+    <TextView
+            android:id="@+id/food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="25dp"
+            android:text="番茄牛肉面"
+            app:layout_constraintStart_toEndOf="@+id/shop_img"
+            app:layout_constraintTop_toBottomOf="@+id/sales_num" />
+
+    <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="25dp"
+            android:text="订单已送达"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+            android:id="@+id/dingdan_money"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="25dp"
+            android:text="36.6"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sales_num" />
+
+    <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="¥"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/dingdan_money"
+            app:layout_constraintTop_toTopOf="@+id/dingdan_money" />
+    <TextView
+            android:id="@+id/textView5"
+            android:text="等"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/food_name"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/sales_num"/>
+    <TextView
+            android:id="@+id/food_num"
+            android:text="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/sales_num"
+            android:layout_marginStart="4dp"/>
+    <TextView
+            android:text="项商品"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/food_num"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/sales_num"/>
+
+</android.support.constraint.ConstraintLayout>

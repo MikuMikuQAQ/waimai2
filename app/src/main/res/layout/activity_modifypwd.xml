@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/password_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            app:contentInsetStart="0dp"
+            android:background="@color/colorPrimary">
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/password_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_return_left_01"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="left"/>
+
+        <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改密码"
+                android:textColor="#ffffff"
+                android:layout_gravity="center"
+                android:textSize="25dp"/>
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/password_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_save"
+                android:layout_gravity="right"
+                android:layout_marginRight="15dp"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/password_toolbar">
+
+        <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/password_edit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:hint="原始密码"
+                android:inputType="textPassword"/>
+
+        <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/password_edit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/password_edit1"
+                android:hint="新密码"
+                android:inputType="textPassword"/>
+
+        <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/password_edit3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/password_edit2"
+                android:hint="确认密码"
+                android:inputType="textPassword"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/paywait_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            app:contentInsetStart="0dp"
+            android:background="@color/colorPrimary">
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/paywait_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_icon_return_left_01" />
+
+        <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="订单结算"
+                android:textColor="#ffffff"
+                android:textSize="25dp" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+        <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="需要支付的金额："
+                android:gravity="bottom|center"
+                android:layout_weight="1"
+                android:textSize="30dp"/>
+
+        <TextView
+                android:id="@+id/paywait_money"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="0.00"
+                android:gravity="top|center"
+                android:layout_weight="1"
+                android:textSize="25dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"></LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+                android:id="@+id/paywait_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:text="确认支付"
+                android:textSize="18dp"
+                android:textColor="#ffffff"
+                android:background="#00af03"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"></LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
