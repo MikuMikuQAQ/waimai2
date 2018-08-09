@@ -6,6 +6,13 @@
                 android:layout_height="match_parent"
                 tools:context="com.waimai.Set.AddPlaceActivity">
 
+    <com.baidu.mapapi.map.MapView
+            android:id="@+id/baidu_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </com.baidu.mapapi.map.MapView>
+
     <android.support.v7.widget.Toolbar
             android:id="@+id/place_add_toolbar"
             android:layout_width="match_parent"
@@ -20,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_icon_return_left_01" />
+                android:src="@drawable/ic_icon_return_left_01"/>
 
         <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -28,7 +35,7 @@
                 android:layout_gravity="center"
                 android:text="添加地址"
                 android:textColor="#ffffff"
-                android:textSize="25dp" />
+                android:textSize="25dp"/>
 
         <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/place_save"
@@ -40,36 +47,68 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.constraint.ConstraintLayout
+    <ImageButton
+            android:id="@+id/place_add_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_get_gps"
+            android:layout_above="@+id/place_add_bottom"/>
+
+    <LinearLayout
+            android:id="@+id/place_add_bottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/place_add_toolbar">
+            android:layout_height="wrap_content"
+            android:background="@drawable/place_editview"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true">
 
         <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/place_add_user"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:hint="收货人"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/place_add_num"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:hint="手机号"
+                    android:layout_marginBottom="8dp"
+                    android:layout_weight="1"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+            android:src="@drawable/ic_phone_num"
+            android:layout_weight="6"
+            android:layout_marginRight="8dp"/>
+
+        </LinearLayout>
 
         <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/place_add_edit"
-                android:layout_width="300dp"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/place_add_user"
                 android:hint="收件地址"
-                android:gravity="left|top"/>
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 </RelativeLayout>

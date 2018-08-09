@@ -2,6 +2,7 @@ package com.waimai.Sign;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
@@ -9,6 +10,7 @@ import android.view.View;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.waimai.Main.MainActivity;
 import com.waimai.Sign.Presenter.ISignPresenter;
 import com.waimai.Sign.Presenter.SignPresenter;
 import com.waimai.Sign.View.ISignView;
@@ -72,7 +74,7 @@ public class SignActivity extends AppCompatActivity implements ISignView {
                     break;
             }
         } else {
-            alertDialogSend("注册成功","注册完成！");
+            alertDialogSendActivity("注册成功","注册完成！");
         }
     }
 
@@ -82,6 +84,18 @@ public class SignActivity extends AppCompatActivity implements ISignView {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
+            }
+        }).show();
+    }
+
+    private void alertDialogSendActivity(String str, String str1) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(str).setMessage(str1).setPositiveButton(" 确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(SignActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         }).show();
     }

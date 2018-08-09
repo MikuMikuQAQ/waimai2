@@ -13,6 +13,12 @@
             android:name="android.permission.WRITE_SETTINGS"
             tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
     <application
             android:name="org.litepal.LitePalApplication"
@@ -47,6 +53,12 @@
         <meta-data
                 android:name="com.baidu.lbsapi.API_KEY"
                 android:value="Nh2G97Uas93g2ac8NKSt054GYCwTqx4W"/>
+
+        <service
+                android:name="com.baidu.location.f"
+                android:enabled="true"
+                android:process=":remote" >
+        </service>
 
     </application>
 
