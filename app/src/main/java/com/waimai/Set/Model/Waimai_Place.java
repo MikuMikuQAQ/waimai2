@@ -10,13 +10,16 @@ public class Waimai_Place extends LitePalSupport {
 
     private String receiptplace;
 
+    private String receiptphone;
+
     public Waimai_Place() {
     }
 
-    public Waimai_Place(int id, String receiptuser, String receiptplace) {
+    public Waimai_Place(int id, String receiptuser, String receiptplace, String receiptphone) {
         Id = id;
         this.receiptuser = receiptuser;
         this.receiptplace = receiptplace;
+        this.receiptphone = receiptphone;
     }
 
     public int getId() {
@@ -41,5 +44,13 @@ public class Waimai_Place extends LitePalSupport {
 
     public void setReceiptplace(String receiptplace) {
         this.receiptplace = receiptplace;
+    }
+
+    public String getReceiptphone() {
+        return receiptphone;
+    }
+
+    public void setReceiptphone(String receiptphone) {
+        this.receiptphone = receiptphone;
     }
 }

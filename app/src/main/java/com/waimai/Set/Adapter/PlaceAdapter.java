@@ -46,8 +46,6 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
                 LitePal.deleteAll(Waimai_Place.class, "id =?" , String.valueOf(waimai_place.getId()));
                 places.remove(position);
                 notifyItemRemoved(position);
-                Log.e("TAG", "onClick: "+ new Gson().toJson(places));
-                Log.e("TAG", "onClick: "+ new Gson().toJson(LitePal.findAll(Waimai_Place.class)));
             }
         });
         return holder;
@@ -58,6 +56,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         Waimai_Place place = places.get(i);
         viewHolder.textViews.get(0).setText(place.getReceiptuser());
         viewHolder.textViews.get(1).setText(place.getReceiptplace());
+        viewHolder.textViews.get(2).setText(place.getReceiptphone());
     }
 
     @Override
@@ -72,7 +71,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.ViewHolder> 
         @BindView(R.id.trash_img)
         AppCompatImageView imageView;
 
-        @BindViews({R.id.user_name,R.id.user_place})
+        @BindViews({R.id.user_name,R.id.user_place,R.id.user_phone})
         List<TextView> textViews;
 
         public ViewHolder(@NonNull View itemView) {

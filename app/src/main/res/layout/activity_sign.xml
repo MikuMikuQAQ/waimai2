@@ -12,25 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
-            app:contentInsetStart="0dp">
-
-        <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/register_return"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_return_left_01"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="left"/>
-
-        <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="用户注册"
-                android:textColor="#ffffff"
-                android:textSize="25dp"/>
-
-    </android.support.v7.widget.Toolbar>
+            app:titleTextColor="#fff"
+            app:contentInsetStart="0dp"/>
 
     <LinearLayout
             android:id="@+id/linearLayout"

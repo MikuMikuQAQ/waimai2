@@ -1,15 +1,20 @@
 package com.waimai.Set;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.*;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -21,6 +26,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.geocode.*;
+import com.waimai.Contact.ContactActivity;
 import com.waimai.Set.Presenter.AddPlacePresenter;
 import com.waimai.Set.Presenter.IAddPlacePresenter;
 import com.waimai.Set.Presenter.ILocationListenner;
@@ -45,26 +51,27 @@ public class AddPlaceActivity extends AppCompatActivity implements IAddPlaceView
 
     private ILocationListenner locationListenner;
 
+    private ActionBar actionBar;
+
+    @BindView(R.id.place_add_toolbar)
+    Toolbar toolbar;
+
     @BindView(R.id.baidu_map)
     MapView mapView;
 
-    @BindViews({R.id.place_add_user, R.id.place_add_edit})
+    @BindViews({R.id.place_add_user, R.id.place_add_edit,R.id.place_add_num})
     List<AppCompatEditText> editTexts;
 
-    @OnClick({R.id.place_add_return, R.id.place_save,R.id.place_add_gps})
+    @OnClick({R.id.place_add_gps,R.id.place_add_contact})
     public void onClicked(View view) {
         switch (view.getId()) {
-            case R.id.place_add_return:
-                setResult(RESULT_OK);
-                finish();
-                break;
-            case R.id.place_save:
-                addPlacePresenter.savePlace(editTexts.get(0).getText().toString(),editTexts.get(1).getText().toString());
-                break;
             case R.id.place_add_gps:
                 baiduMap.clear();
                 baiduMap.setMyLocationEnabled(true);
                 locationClient.start();
+                break;
+            case R.id.place_add_contact:
+                startActivityForResult(new Intent(this, ContactActivity.class),1);
                 break;
             default:
                 break;
@@ -86,6 +93,13 @@ public class AddPlaceActivity extends AppCompatActivity implements IAddPlaceView
         addPlacePresenter = new AddPlacePresenter(this,this);
 
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_icon_return_left_01);
+        }
 
         locationListenner = new LocationListenner(this);
 
@@ -119,6 +133,43 @@ public class AddPlaceActivity extends AppCompatActivity implements IAddPlaceView
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.place_add_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                setResult(RESULT_OK);
+                finish();
+                break;
+            case R.id.place_save:
+                addPlacePresenter.savePlace(editTexts.get(0).getText().toString(),editTexts.get(1).getText().toString(),editTexts.get(2).getText().toString());
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    editTexts.get(0).setText(data.getStringExtra("contactName"));
+                    editTexts.get(2).setText(data.getStringExtra("contactNum"));
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
     public void saveStatus(int num) {
         switch (num) {
             case 0:
@@ -129,6 +180,9 @@ public class AddPlaceActivity extends AppCompatActivity implements IAddPlaceView
                 break;
             case 2:
                 Toast.makeText(this, "存储失败", Toast.LENGTH_SHORT).show();
+                break;
+            case 4:
+                Toast.makeText(this, "请填写手机号码", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 Toast.makeText(this, "存储成功", Toast.LENGTH_SHORT).show();

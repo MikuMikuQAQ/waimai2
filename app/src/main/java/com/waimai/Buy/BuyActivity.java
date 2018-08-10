@@ -3,9 +3,12 @@ package com.waimai.Buy;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.*;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -37,10 +40,12 @@ public class BuyActivity extends AppCompatActivity implements IBuyView {
 
     private IBuyPresenter buyPresenter;
 
+    private ActionBar actionBar;
+
     @BindViews({R.id.buy_shop_name,R.id.buy_sum})
     List<AppCompatTextView> textViews;
 
-    @BindViews({R.id.buy_return,R.id.buy_shop_img})
+    @BindViews({R.id.buy_shop_img})
     List<AppCompatImageView> imageViews;
 
     @BindView(R.id.menu_right)
@@ -49,12 +54,12 @@ public class BuyActivity extends AppCompatActivity implements IBuyView {
     @BindView(R.id.buy_button)
     AppCompatButton buyButton;
 
-    @OnClick({R.id.buy_return,R.id.buy_button})
+    @BindView(R.id.buy_toolbar)
+    Toolbar toolbar;
+
+    @OnClick({R.id.buy_button})
     public void onClicked(View view) {
         switch (view.getId()) {
-            case R.id.buy_return:
-                finish();
-                break;
             case R.id.buy_button:
                 if (rightAdapter.getJiSuan() <= 0){
                     Toast.makeText(this,"请选择菜品",Toast.LENGTH_SHORT).show();
@@ -81,6 +86,14 @@ public class BuyActivity extends AppCompatActivity implements IBuyView {
 
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_icon_return_left_01);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+
         getDeta = getIntent();
         str = getIntent().getStringExtra("shopName");
 
@@ -95,6 +108,18 @@ public class BuyActivity extends AppCompatActivity implements IBuyView {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         rightAdapter = new RightRecyclerAdapter(BuyActivity.this, rights);
         recyclerView.setAdapter(rightAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     private void addRights(){

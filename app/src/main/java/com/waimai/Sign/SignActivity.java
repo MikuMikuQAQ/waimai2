@@ -3,10 +3,15 @@ package com.waimai.Sign;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,15 +25,17 @@ import java.util.List;
 
 public class SignActivity extends AppCompatActivity implements ISignView {
 
-    @BindViews({R.id.register_editText1,R.id.register_editText2,R.id.register_editText3})
-    public List<AppCompatEditText> editTexts;
+    private ActionBar actionBar;
 
-    @OnClick({R.id.register_return,R.id.register_button})
+    @BindViews({R.id.register_editText1,R.id.register_editText2,R.id.register_editText3})
+    List<AppCompatEditText> editTexts;
+
+    @BindView(R.id.register_toolbar)
+    Toolbar toolbar;
+
+    @OnClick({R.id.register_button})
     public void onClick(View view){
         switch (view.getId()){
-            case R.id.register_return:
-                finish();
-                break;
             case R.id.register_button:
                 signPresenter.doSign(editTexts.get(0).getText().toString(),
                         editTexts.get(1).getText().toString(),
@@ -48,7 +55,26 @@ public class SignActivity extends AppCompatActivity implements ISignView {
 
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_icon_return_left_01);
+        }
+
         signPresenter = new SignPresenter(this,this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override

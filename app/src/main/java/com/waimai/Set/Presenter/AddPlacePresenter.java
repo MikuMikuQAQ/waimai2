@@ -25,16 +25,21 @@ public class AddPlacePresenter implements IAddPlacePresenter {
     }
 
     @Override
-    public void savePlace(String name, String place) {
+    public void savePlace(String name, String place,String phone) {
         if (!name.isEmpty()){
             if (!place.isEmpty()){
-                Waimai_Place places = new Waimai_Place();
-                places.setReceiptuser(name);
-                places.setReceiptplace(place);
-                if (places.save()){
-                    addPlaceView.saveStatus(3);
+                if (!phone.isEmpty()){
+                    Waimai_Place places = new Waimai_Place();
+                    places.setReceiptuser(name);
+                    places.setReceiptplace(place);
+                    places.setReceiptphone(phone);
+                    if (places.save()){
+                        addPlaceView.saveStatus(3);
+                    }else {
+                        addPlaceView.saveStatus(2);
+                    }
                 }else {
-                    addPlaceView.saveStatus(2);
+                    addPlaceView.saveStatus(4);
                 }
             }else {
                 addPlaceView.saveStatus(1);

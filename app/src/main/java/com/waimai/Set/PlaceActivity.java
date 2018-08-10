@@ -5,10 +5,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.*;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +33,7 @@ public class PlaceActivity extends AppCompatActivity implements IPlaceView, Swip
     private List<Waimai_Place> places = new ArrayList<>();
     private List<Waimai_Place> places1 = new ArrayList<>();
     private IPlacePresenter placePresenter;
+    private ActionBar actionBar;
 
     @BindView(R.id.refresh_placelist)
     SwipeRefreshLayout refreshLayout;
@@ -37,20 +41,8 @@ public class PlaceActivity extends AppCompatActivity implements IPlaceView, Swip
     @BindView(R.id.place_recycler)
     RecyclerView recyclerView;
 
-    @OnClick({R.id.place_return, R.id.place_add})
-    public void onClicked(View view) {
-        switch (view.getId()) {
-            case R.id.place_return:
-                finish();
-                break;
-            case R.id.place_add:
-                Intent intent = new Intent(this, AddPlaceActivity.class);
-                startActivityForResult(intent, 0);
-                break;
-            default:
-                break;
-        }
-    }
+    @BindView(R.id.place_toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +53,19 @@ public class PlaceActivity extends AppCompatActivity implements IPlaceView, Swip
 
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_icon_return_left_01);
+        }
+
         addPlaceList();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(PlaceActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        recyclerView.addItemDecoration(new DividerItemDecoration(PlaceActivity.this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapter = new PlaceAdapter(this, this, places);
         recyclerView.setAdapter(adapter);
@@ -74,6 +73,28 @@ public class PlaceActivity extends AppCompatActivity implements IPlaceView, Swip
         refreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.place_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.place_add:
+                Intent intent = new Intent(this, AddPlaceActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     private void addPlaceList() {

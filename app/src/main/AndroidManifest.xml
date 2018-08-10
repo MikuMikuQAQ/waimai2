@@ -17,8 +17,13 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" tools:ignore="ProtectedPermissions"/>
+    <uses-permission
+            android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+            tools:ignore="ProtectedPermissions"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
     <application
             android:name="org.litepal.LitePalApplication"
@@ -35,7 +40,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.waimai.Sign.SignActivity">
+        <activity android:name="com.waimai.Sign.SignActivity"
+                  android:label="用户注册">
         </activity>
         <activity android:name="com.waimai.Main.MainActivity">
         </activity>
@@ -43,11 +49,18 @@
         </activity>
         <activity android:name="com.waimai.Pay.PaymentActivity">
         </activity>
-        <activity android:name="com.waimai.Set.ModifyPwdActivity">
+        <activity android:name="com.waimai.Set.ModifyPwdActivity"
+                  android:label="修改密码">
         </activity>
-        <activity android:name="com.waimai.Set.PlaceActivity">
+        <activity android:name="com.waimai.Set.PlaceActivity"
+                  android:label="地址管理">
         </activity>
-        <activity android:name="com.waimai.Set.AddPlaceActivity">
+        <activity android:name="com.waimai.Set.AddPlaceActivity"
+                  android:label="添加地址">
+        </activity>
+
+        <activity android:name="com.waimai.Contact.ContactActivity"
+                  android:label="添加联系人">
         </activity>
 
         <meta-data
@@ -57,7 +70,7 @@
         <service
                 android:name="com.baidu.location.f"
                 android:enabled="true"
-                android:process=":remote" >
+                android:process=":remote">
         </service>
 
     </application>

@@ -2,14 +2,19 @@ package com.waimai.Set;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,6 +29,8 @@ import java.util.regex.Pattern;
 
 public class ModifyPwdActivity extends AppCompatActivity implements IModifyView {
 
+    private ActionBar actionBar;
+
     private IModifyPresenter modifyPresenter;
 
     private String userName;
@@ -31,23 +38,8 @@ public class ModifyPwdActivity extends AppCompatActivity implements IModifyView 
     @BindViews({R.id.password_edit1, R.id.password_edit2, R.id.password_edit3})
     List<AppCompatEditText> editTexts;
 
-    @BindViews({R.id.password_return, R.id.password_save})
-    List<AppCompatImageView> imageViews;
-
-    @OnClick({R.id.password_return, R.id.password_save})
-    public void onClicked(View view) {
-        switch (view.getId()) {
-            case R.id.password_return:
-                finish();
-                break;
-            case R.id.password_save:
-                Log.e("TAG", "onClicked: "+userName);
-                modifyPresenter.updatePwd(userName,editTexts.get(0).getText().toString(),editTexts.get(1).getText().toString(),editTexts.get(2).getText().toString());
-                break;
-            default:
-                break;
-        }
-    }
+    @BindView(R.id.password_toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +50,36 @@ public class ModifyPwdActivity extends AppCompatActivity implements IModifyView 
 
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_icon_return_left_01);
+        }
+
         Intent intent = getIntent();
         userName = intent.getStringExtra("userName");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.modify_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.password_save:
+                modifyPresenter.updatePwd(userName,editTexts.get(0).getText().toString(),editTexts.get(1).getText().toString(),editTexts.get(2).getText().toString());
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     @Override
