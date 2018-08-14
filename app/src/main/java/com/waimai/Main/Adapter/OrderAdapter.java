@@ -1,5 +1,6 @@
 package com.waimai.Main.Adapter;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -15,6 +17,7 @@ import butterknife.ButterKnife;
 import com.google.gson.Gson;
 import com.waimai.Main.Model.Waimai_Dingdan;
 import com.waimai.View.R;
+import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -34,13 +37,24 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.order_item,viewGroup,false);
         final ViewHolder holder = new ViewHolder(view);
+        holder.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                Waimai_Dingdan dingdan = dingdanList.get(position);
+                ContentValues values = new ContentValues();
+                values.put("status",1);
+                LitePal.updateAll(Waimai_Dingdan.class,values,"id = ?",String.valueOf(dingdan.getId()));
+                holder.button.setEnabled(false);
+                holder.button.setText("已完成");
+            }
+        });
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Waimai_Dingdan dingdan = dingdanList.get(i);
-        //Log.e("TAG", "onBindViewHolder: " + new Gson().toJson(viewHolder.textViews.get(0)) );
         if (dingdan.getImgId() == 0) {
             viewHolder.orderImg.setImageResource(R.drawable.ic_food);
         } else {
@@ -51,8 +65,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         viewHolder.textViews.get(2).setText(dingdan.getFoodName());
         if (dingdan.getStatus() == 0){
             viewHolder.textViews.get(3).setText("未送达");
+            viewHolder.button.setText("确认收货");
+            viewHolder.button.setEnabled(true);
         } else if (dingdan.getStatus() == 1) {
             viewHolder.textViews.get(3).setText("已送达");
+            viewHolder.button.setText("已收货");
+            viewHolder.button.setEnabled(false);
         }
         viewHolder.textViews.get(4).setText(String.valueOf(dingdan.getFoodMoney()));
         viewHolder.textViews.get(5).setText(String.valueOf(dingdan.getFoodNum()));
@@ -72,6 +90,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 
         @BindView(R.id.shop_img)
         ImageView orderImg;
+
+        @BindView(R.id.order_button)
+        Button button;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

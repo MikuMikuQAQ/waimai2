@@ -1,15 +1,20 @@
 package com.waimai.Pay;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +23,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.waimai.Main.MainActivity;
+import com.waimai.Main.OrderFragment;
 import com.waimai.Pay.Presenter.IPaywaitPresenter;
 import com.waimai.Pay.Presenter.PaywaitPresenter;
 import com.waimai.Pay.View.IPaywaitView;
 import com.waimai.View.R;
 
 import java.lang.ref.WeakReference;
+
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
 public class PaywaitFragment extends Fragment implements IPaywaitView {
 
@@ -50,11 +59,12 @@ public class PaywaitFragment extends Fragment implements IPaywaitView {
     @BindView(R.id.paywait_money)
     AppCompatTextView textView;
 
-    @OnClick({R.id.paywait_button,R.id.paywait_return})
-    public void onClicked(View view){
+    @OnClick({R.id.paywait_button, R.id.paywait_return})
+    public void onClicked(View view) {
         switch (view.getId()) {
             case R.id.paywait_button:
-                paywaitPresenter.yzMsg(shopName,foodName,money,foodNum);
+                getNotification();
+                paywaitPresenter.yzMsg(shopName, foodName, money, foodNum);
                 break;
             case R.id.paywait_return:
                 getActivity().finish();
@@ -103,12 +113,12 @@ public class PaywaitFragment extends Fragment implements IPaywaitView {
 
     @Override
     public void getStatus(int num) {
-        switch (num){
+        switch (num) {
             case 0:
-                alertDialogSend("支付失败","余额不足，请充值！");
+                alertDialogSend("支付失败", "余额不足，请充值！");
                 break;
             case 1:
-                alertDialogSend("支付失败","支付错误");
+                alertDialogSend("支付失败", "支付错误");
                 break;
             default:
                 fragmentManager = getActivity().getSupportFragmentManager();
@@ -125,8 +135,27 @@ public class PaywaitFragment extends Fragment implements IPaywaitView {
         builder.setTitle(str).setMessage(str1).setPositiveButton(" 确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                getActivity().finish();
             }
         }).show();
+    }
+
+    private void getNotification() {
+       /* Intent intent = new Intent(getActivity(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);*/
+
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notificationCompat = new NotificationCompat.Builder(getContext())
+                .setContentTitle("订单支付成功")
+                .setContentText("在"+shopName+"购买了"+foodName+"等共计"+foodNum+"个商品，消费"+str+"元")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                .setAutoCancel(true)
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                //.setContentIntent(pendingIntent)
+                .build();
+        manager.notify(1,notificationCompat);
     }
 }

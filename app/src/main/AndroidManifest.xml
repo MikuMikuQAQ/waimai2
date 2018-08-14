@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
             android:name="org.litepal.LitePalApplication"
@@ -40,8 +41,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.waimai.Sign.SignActivity"
-                  android:label="用户注册">
+        <activity
+                android:name="com.waimai.Sign.SignActivity"
+                android:label="用户注册">
         </activity>
         <activity android:name="com.waimai.Main.MainActivity">
         </activity>
@@ -49,18 +51,21 @@
         </activity>
         <activity android:name="com.waimai.Pay.PaymentActivity">
         </activity>
-        <activity android:name="com.waimai.Set.ModifyPwdActivity"
-                  android:label="修改密码">
+        <activity
+                android:name="com.waimai.Set.ModifyPwdActivity"
+                android:label="修改密码">
         </activity>
-        <activity android:name="com.waimai.Set.PlaceActivity"
-                  android:label="地址管理">
+        <activity
+                android:name="com.waimai.Set.PlaceActivity"
+                android:label="地址管理">
         </activity>
-        <activity android:name="com.waimai.Set.AddPlaceActivity"
-                  android:label="添加地址">
+        <activity
+                android:name="com.waimai.Set.AddPlaceActivity"
+                android:label="添加地址">
         </activity>
-
-        <activity android:name="com.waimai.Contact.ContactActivity"
-                  android:label="添加联系人">
+        <activity
+                android:name="com.waimai.Contact.ContactActivity"
+                android:label="添加联系人">
         </activity>
 
         <meta-data
@@ -72,7 +77,11 @@
                 android:enabled="true"
                 android:process=":remote">
         </service>
-
+        <service
+                android:name="com.waimai.Service.OrderService"
+                android:enabled="true"
+                android:exported="true">
+        </service>
     </application>
 
 </manifest>
